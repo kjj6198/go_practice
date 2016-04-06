@@ -33,9 +33,5 @@ func main() {
 	// 1.1
 	// 1.2
 	fmt.Println(path.Base(resultWithName))
-
-	
-
-	// join expect a string array
 	
 }
