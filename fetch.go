@@ -5,10 +5,15 @@ import (
   "io/ioutil"
   "net/http"
   "os"
+  "strings"
 )
 
 func main() {
-	url := "http://buzzorange.com/"
+	url := "buzzorange.com/"
+
+	if !strings.HasPrefix(url, "http://") {
+		url = "http://" + url
+	}
 	res, err1 := http.Get(url)
 	if err1 != nil {
 		fmt.Fprintf(os.Stderr, "fetch: %v\n", err1)
@@ -24,4 +29,5 @@ func main() {
 	}
 
 	fmt.Printf("%s", b)
+	fmt.Printf("%s", res.Status)
 }
