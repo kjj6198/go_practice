@@ -2,10 +2,11 @@ package main
 
 import (
   "fmt"
-  "io/ioutil"
   "net/http"
   "os"
   "strings"
+	"io"
+	"log"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	b, err2 := ioutil.ReadAll(res.Body)
+	_, err2 := io.Copy(os.Stdout, res.Body)
 	res.Body.Close()
 
 	if err2 != nil {
@@ -28,6 +29,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("%s", b)
+	// fmt.Printf("%s", data)
 	fmt.Printf("%s", res.Status)
+
+	r := strings.NewReader("some io.reader Stream to be read")
+
+	if _, err := io.Copy(os.Stdout, r); err != nil {
+		log.Fatal(err)
+		res.StatusCode
+	}
 }
